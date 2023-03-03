@@ -7,6 +7,7 @@ import shutil
 outFolder = './out'
 articlesFolder = './articles'
 archivesFolder = './archives'
+masterFolder = './master'
 searchFile = '*.json'
 listFile = 'list.json'
 
@@ -33,6 +34,13 @@ def main():
         builder.append(name,title,createdDate,tags)
     # Create file list
     builder.build()
+
+    # Get file list
+    files = glob.glob(os.path.join(masterFolder, searchFile))
+    for file in files:
+        # Copy to out folder
+        create_outfile(file)
+
 
 def setting():
     # Folder check

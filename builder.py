@@ -22,7 +22,7 @@ def main():
     builder = list_builder()
     for file in files:
         # Get json info
-        name, title, body, createdDate, tags =get_fileinfo(file)
+        name, title, body, createdDate, thumbnail, tags =get_fileinfo(file)
 
         # Copy to out folder
         if createdDate != "":
@@ -31,7 +31,7 @@ def main():
         # Create archive file
         create_md(file, body)
 
-        builder.append(name,title,createdDate,tags)
+        builder.append(name,title,createdDate, thumbnail,tags)
     # Create file list
     builder.build()
 
@@ -77,6 +77,7 @@ def get_fileinfo(file):
         fsJson = json.load(fs)
         body = str( fsJson['body'] )
         title = str( fsJson['title'] )
+        thumbnail = str( fsJson['thumbnail'] )
         createdDate = ""
         if 'createdDate' in fsJson:
             createdDate = str( fsJson['createdDate'] )
@@ -86,18 +87,20 @@ def get_fileinfo(file):
         title, 
         body, 
         createdDate,
+        thumbnail,
         tags,
     ]
 
 class list_builder:
     def __init__(self):
         self.file_list = []
-    def append(self, name, title, createdDate, tags):
+    def append(self, name, title, createdDate, thumbnail, tags):
         if createdDate != "":
             self.file_list.append({
                 "name": name, 
                 "title": title, 
                 "createdDate": createdDate,
+                "thumbnail": thumbnail,
                 "tags": tags,
             })
 

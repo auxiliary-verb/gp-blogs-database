@@ -2,5 +2,10 @@
     "blog": {
         "title":"GP-Blogs",
         "description": "ここにブログの説明を入れます"
+    },
+    "author": {
+        "name":"namae",
+        "description": "",
+        "github-id": "auxiliary-verb"
     }
 }

@@ -72,7 +72,8 @@ def create_md(file, body):
         fs.write(body)
 
 def get_fileinfo(file):
-    name = os.path.splitext(file)[0]
+    filename = os.path.basename(file)
+    name = os.path.splitext(filename)[0]
     with open(file, 'r') as fs: 
         fsJson = json.load(fs)
         body = str( fsJson['body'] )

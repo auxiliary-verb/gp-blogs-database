@@ -51,20 +51,17 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
-      # スクリプト実行
-      - name: build
-        run: python ./builder.py
       # 差分があるか調べる
       - name: Diff
         id: diff
         run: |
+          python ./builder.py
           git add -N .
           git diff --name-only --exit-code
         continue-on-error: true
       # 結果をコミットする
       - name: commit
         run: |
-          python .github/workflows/example.py
           git config user.name "$(git --no-pager log --format=format:'%an' -n 1)"
           git config user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git add .

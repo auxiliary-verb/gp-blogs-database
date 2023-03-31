@@ -37,8 +37,17 @@ jobs:
       - name: build
         run: python3 ./builder.py
 
-      - name: Check git repos
-        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: './out'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+
       # 差分があるか調べる
       - name: Diff
         id: diff
@@ -53,16 +62,6 @@ jobs:
           git config user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git add .
           git commit -m "Auto generate"
-          git push
+          git pull
+          git push origin main
         if: steps.diff.outcome == 'failure'
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          # Upload entire repository
-          path: './out'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1

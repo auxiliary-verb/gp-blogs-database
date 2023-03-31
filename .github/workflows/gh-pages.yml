@@ -65,3 +65,5 @@ jobs:
           git commit -m "Auto generate"
           git push
         if: steps.diff.outcome == 'failure'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
